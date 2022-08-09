@@ -50,7 +50,7 @@ jobs:
       - checkout
       - run:
           name: "Print My name"
-          command: "echo $coder_name>> logs; cat logs"
+          command: "echo $coder_name>> logs"
       - run:
           name: "Print My logs"
           command: "cat logs"
