@@ -70,8 +70,8 @@ jobs:
           command: |
             echo "Echoing some text to file" > ~/my_file.txt
       - persist_to_workspace:
-        root: /tmp/dir
-        - path: ~/my_file.txt
+          root: /tmp/dir
+          - path: ~/my_file.txt
   print_output_file:
     docker:
       - image: circleci/node:13.8.0
