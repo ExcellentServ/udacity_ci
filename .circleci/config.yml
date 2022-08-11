@@ -59,6 +59,32 @@ jobs:
           command: |
             echo $coder_name
 
+
+  save_hello_world_output:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run:
+          name: "Echo text to file"
+          command: |
+            echo "Echoing some text to file" > ~/my_file.txt
+      - persist_to_workspace:
+        root: /tmp/dir
+        - path: ~/my_file.txt
+  print_output_file:
+    docker:
+      - image: circleci/node:13.8.0
+    
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/dir
+      - run:
+          name: "Cat text from file"
+          command: |
+            cat /tmp/dir/my_file.txt
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -72,3 +98,5 @@ workflows:
       - print_my_name:
           requires:
             - print_world
+      - save_hello_world_output
+      - print_output_file
