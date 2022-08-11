@@ -5,7 +5,7 @@ version: 2.1
 ### COmmands:
 commands: # a reusable command with parameters
   print_pipeline_id:
-    paramerters:
+    parameters:
       to:
         type: string
         default: "No provided ID"
