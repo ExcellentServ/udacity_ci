@@ -80,11 +80,11 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/dir
+          at: ~/
       - run:
           name: "Cat text from file"
           command: |
-            cat /tmp/dir/my_file.txt
+            cat my_file.txt
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
