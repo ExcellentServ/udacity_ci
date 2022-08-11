@@ -21,7 +21,7 @@ jobs:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     <<: *defaultCon
-    # Add steps to the job
+    # A<<: *defaultCondd steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
@@ -32,8 +32,7 @@ jobs:
   print_hello:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaultCon
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
@@ -45,8 +44,7 @@ jobs:
   print_world:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaultCon
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
@@ -54,9 +52,10 @@ jobs:
       - run:
           name: "Say World"
           command: "echo World!"
+
+          
   print_my_name:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaultCon
     steps:
       - checkout
       - run:
@@ -72,8 +71,7 @@ jobs:
 
 
   save_hello_world_output:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaultCon
     steps:
       - checkout
       - run:
@@ -84,10 +82,10 @@ jobs:
           root: ~/
           paths:
             - my_file.txt
+
+
   print_output_file:
-    docker:
-      - image: circleci/node:13.8.0
-    
+    <<: *defaultCon
     steps:
       - checkout
       - attach_workspace:
@@ -95,8 +93,7 @@ jobs:
       - run: cat /tmp/data/my_file.txt
 
   test_command_in_job:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaultCon
     steps:
       - checkout
       - print_pipeline_id :
