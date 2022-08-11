@@ -70,9 +70,9 @@ jobs:
           command: |
             echo "Echoing some text to file" > ~/my_file.txt
       - persist_to_workspace:
-          root: /tmp
+          root: ~/
           paths:
-            - ~/my_file.txt
+            - my_file.txt
   print_output_file:
     docker:
       - image: circleci/node:13.8.0
@@ -80,11 +80,11 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/dir
+          at: ~/
       - run:
           name: "Cat text from file"
           command: |
-            cat /tmp/dir/my_file.txt
+            cat my_file.txt
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
