@@ -103,9 +103,9 @@ jobs:
     run: exit 1
   
   test_on_fail_action:
-  name: Test on Fail
-  run: echo "Hello Error!"
-  when: on_fail
+    name: Test on Fail
+    run: echo "Hello Error!"
+    when: on_fail
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
