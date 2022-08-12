@@ -100,13 +100,13 @@ jobs:
           to: ${CIRCLE_WORKFLOW_ID}
   
   test_on_fail_step:
-  <<: *defaultCon
+    <<: *defaultCon
     steps:
       - checkout
       - run: exit 1
   
   test_on_fail_action:
-  <<: *defaultCon
+    <<: *defaultCon
     steps:
       - checkout
       - run:
