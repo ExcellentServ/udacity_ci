@@ -104,11 +104,7 @@ jobs:
     steps:
       - checkout
       - run: exit 1
-  
-  test_on_fail_action:
-    <<: *defaultCon
-    steps:
-      - checkout
+
       - run:
           name: Test on Fail
           command: echo "Hello Error!"
