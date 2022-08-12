@@ -100,13 +100,19 @@ jobs:
           to: ${CIRCLE_WORKFLOW_ID}
   
   test_on_fail_step:
-    run: exit 1
+  <<: *defaultCon
+    steps:
+      - checkout
+      - run: exit 1
   
   test_on_fail_action:
-    run:
-      name: Test on Fail
-      command: echo "Hello Error!"
-      when: on_fail
+  <<: *defaultCon
+    steps:
+      - checkout
+      - run:
+          name: Test on Fail
+          command: echo "Hello Error!"
+          when: on_fail
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
