@@ -7,6 +7,7 @@ orbs:
   # Declare a dependency on the welcome-orb
   # welcome: circleci/welcome-orb@0.4.1
   aws-cli: circleci/aws-cli@2.0.3
+  
 default_containers: &defaultCon
   docker:
   - image: cimg/base:stable
