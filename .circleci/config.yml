@@ -120,6 +120,27 @@ jobs:
               --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
               --region us-east-1
   
+  # Exercise: Config and Deployment
+configure_infrastructure: 
+  docker:
+    - image: 
+  steps:
+    - checkout
+    - add_ssh_keys:
+            # You can get this ID in the section where you registered the SSH Key
+            fingerprints: ["5e:5b:b7:bf:cb:0b:2a:1f:51:fd:89:01:b8:73:f9:a8"] 
+    - run:
+        name: Install Ansible
+        command: |
+          # Install Ansible
+          apk add --update ansible
+    - run:
+        name: Run Playbook and Configure server
+        command: |
+          # Your command
+          ansible-playbook -i inventory template.yml
+
+  
   test_on_fail_step:
     <<: *defaultCon
     steps:
@@ -151,4 +172,5 @@ workflows:
       # - test_command_in_job
       # - test_on_fail_step
       - create_infrastructure
+      - configure_infrastructure
       
