@@ -173,4 +173,6 @@ workflows:
       # - test_on_fail_step
       - create_infrastructure
       - configure_infrastructure
+        requires:
+          - create_infrastructure
       
