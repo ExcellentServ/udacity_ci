@@ -98,6 +98,18 @@ jobs:
       - checkout
       - print_pipeline_id :
           to: ${CIRCLE_WORKFLOW_ID}
+  create_infrastructure: 
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Create Cloudformation Stack
+          command: |
+            aws cloudformation deploy \
+              --template-file template.yml \
+              --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
+              --region us-east-1
   
   test_on_fail_step:
     <<: *defaultCon
@@ -115,18 +127,19 @@ jobs:
 workflows:
   say-hello-workflow:
     jobs:
-      - say-hello
-      - print_hello
-      - print_world:
-          requires:
-          - print_hello
-      - print_my_name:
-          requires:
-            - print_world
-      - save_hello_world_output
-      - print_output_file:
-          requires:
-            - save_hello_world_output
-      - test_command_in_job
+      # - say-hello
+      # - print_hello
+      # - print_world:
+      #     requires:
+      #     - print_hello
+      # - print_my_name:
+      #     requires:
+      #       - print_world
+      # - save_hello_world_output
+      # - print_output_file:
+      #     requires:
+      #       - save_hello_world_output
+      # - test_command_in_job
       # - test_on_fail_step
+      - create_infrastructure
       
