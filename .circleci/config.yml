@@ -150,7 +150,7 @@ jobs:
           command: |
             # Your command
             ansible-playbook -i inventory template.yml
-      - destroy_environment
+
 
   
   test_on_fail_step:
