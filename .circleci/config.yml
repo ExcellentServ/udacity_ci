@@ -146,6 +146,11 @@ jobs:
             # Install Ansible
             apk add --update ansible
       - run:
+          name: Build inventory file
+          command: |
+          echo [all] > inventory
+          aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> inventory
+      - run:
           name: Run Playbook and Configure server
           command: |
             # Your command
