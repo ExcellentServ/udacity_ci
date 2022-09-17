@@ -135,6 +135,10 @@ jobs:
           command: |
             echo [all] > inventory
             aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> inventory
+      - run:
+          name: Install tar utility
+          command: |
+            yum install -y tar gzip
       - persist_to_workspace:
           root: ~/
           paths:
