@@ -123,32 +123,32 @@ jobs:
     steps:
       # - run: apk add --update openssh-client git
       - checkout
-      # - run:
-      #     name: Create Cloudformation Stack
-      #     command: |
-      #       aws cloudformation deploy \
-      #         --template-file template.yml \
-      #         --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
-      #         --region us-east-1
-      # - run:
-      #     name: Build inventory file
-      #     command: |
-      #       echo [all] > ~/inventory
-      #       aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> ~/inventory
-      # - run:
-      #     name: Install tar utility
-      #     command: |
-      #       yum install -y tar gzip
-      # - persist_to_workspace:
-      #     root: ~/
-      #     paths:
-      #       - inventory
+      - run:
+          name: Create Cloudformation Stack
+          command: |
+            aws cloudformation deploy \
+              --template-file template.yml \
+              --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
+              --region us-east-1
+      - run:
+          name: Build inventory file
+          command: |
+            echo [all] > ~/inventory
+            aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> ~/inventory
+      - run:
+          name: Install tar utility
+          command: |
+            yum install -y tar gzip
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - inventory
       
       - destroy_environment
   # Exercise: Config and Deployment
   configure_infrastructure: 
     docker:
-      - image: python:3.7-alpine3.11
+      - image: python:latest
     steps:
       - checkout
       - add_ssh_keys:
@@ -159,13 +159,13 @@ jobs:
           command: |
             # Install Ansible
             apk add --update ansible
-      # - attach_workspace:
-      #     at: ~/myinv
+      - attach_workspace:
+          at: ~/myinv
       - run:
           name: Run Playbook and Configure server
           command: |
             # Your command
-            ansible-playbook -i inventory -vvv main.yml
+            ansible-playbook -i ~/myinv/inventory -vvv main.yml
 
 
   
