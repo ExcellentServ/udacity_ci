@@ -167,7 +167,23 @@ jobs:
             # Your command
             ansible-playbook -i ~/myinv/inventory -vvv main.yml
 
-
+  smoke_test:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run: apk add --update curl
+      - run:
+        name: smoke test
+        command: |
+          URL="https://blog.udacity.com/"
+          # Test if website exists
+          if curl -s --head ${URL} 
+          then
+            return 0
+          else
+            return 1
+          fi
+      
   
   test_on_fail_step:
     <<: *defaultCon
@@ -203,4 +219,7 @@ workflows:
       - configure_infrastructure:
           requires:
             - create_infrastructure
+      - smoke_test:
+          requires:
+            - configure_infrastructure
       
