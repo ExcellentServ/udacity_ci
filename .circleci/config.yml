@@ -196,6 +196,9 @@ jobs:
           command: echo "Hello Error!"
           when: on_fail
 
+  clear_stack:
+    - steps:
+      - destroy_environment
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -222,4 +225,8 @@ workflows:
       - smoke_test:
           requires:
             - configure_infrastructure
+
+      - clear_stack:
+        requires:
+          - smoke_test
       
