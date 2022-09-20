@@ -227,6 +227,6 @@ workflows:
             - configure_infrastructure
 
       - clear_stack:
-        requires:
-          - smoke_test
+          requires:
+            - smoke_test
       
