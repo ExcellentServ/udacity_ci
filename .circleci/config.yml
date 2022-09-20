@@ -197,8 +197,8 @@ jobs:
           when: on_fail
 
   clear_stack:
-    # docker:
-    #   - image: alpine:latest
+    docker:
+      - image: alpine:latest
     steps:
       - destroy_environment
 # Invoke jobs via workflows
