@@ -196,15 +196,15 @@ jobs:
       - destroy_environment_on_fail
   
   # Exercise: Smoke Testing
-smoke_test_on_fail:
-  docker:
-    - image: alpine:latest
-  steps:
-    - run:
-        name: Test job
-        # Fail the job intentionally to simulate an error.
-        command:  return 1
-    - destroy_environment_on_fail  
+  smoke_test_on_fail:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run:
+          name: Test job
+          # Fail the job intentionally to simulate an error.
+          command:  return 1
+      - destroy_environment_on_fail  
       
   
   test_on_fail_step:
