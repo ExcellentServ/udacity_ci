@@ -209,7 +209,7 @@ jobs:
 
   clear_stack:
     docker:
-      - image: alpine:latest
+      - image: amazon/aws-cli
     steps:
       - destroy_environment
 # Invoke jobs via workflows
